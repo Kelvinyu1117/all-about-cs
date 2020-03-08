@@ -11,7 +11,7 @@
 ### Dijkstra Algorithm
 * Link State algorithm
 * Compute the shortest path (i.e. least cost) from each node to all other nodes
-* Worst case time complexity: $O(|V|^2)$. It can be improved to $O(|E| + log(|V|)$ by using prioriy queue,where $|V|$ is number of node and $|E|$ is the number of edges in the graph
+* Worst case time complexity: $O(|V|^2)$. It can be improved to $O(|E| + log(|V|)$ by using priority queue,where $|V|$ is number of node and $|E|$ is the number of edges in the graph
 * Pseudocode
 ```
     For each node i in graph G:
