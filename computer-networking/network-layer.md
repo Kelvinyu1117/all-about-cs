@@ -68,7 +68,7 @@ The main reasons for using this approach instead of just adpoting the traditiona
 * Scale of the network
   * It is difficult to directly applying the algorithm into numerous of routers in the internet as the routing information may require excessive of memory for storage
 * Adminstrative policy 
-  * Some set of routers belongs to certain of organizations. They may have special policies in term of network adminstration.
+  * Some set of routers belongs to certain organizations. They may have special policies in term of network adminstration.
 ### Type of routing algorithms
 * Intra-AS algorithm
 * Inter-AS algorithm
