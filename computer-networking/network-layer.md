@@ -49,7 +49,7 @@ When the link cost is changed or the link is down, routing loop may occur that t
 #### Solution: Split horizon with poison reverse
 The main idea of split horizon is to prevent to advertise the route to the interface which learnt from. With poison reverse machanism, the router will report INF to that interface instead.
 
-### Comparsion between Link state and distance vector algorithm
+### Comparsion between link state and distance vector algorithm
 |                      	| Link State                                                                                	| Distance Vector                                                                             	|   	|   	|
 |----------------------	|-------------------------------------------------------------------------------------------	|---------------------------------------------------------------------------------------------	|---	|---	|
 | Message complexity   	| Always requires O(VE) messages, flood the link info to all the nodes if it is changed 	| propagate the new link info to the neighbours only if the new cost result in shortest path  	|   	|   	|
