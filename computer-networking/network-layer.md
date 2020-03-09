@@ -58,6 +58,7 @@ The main idea of split horizon is to prevent to advertise the route to the inter
 ### Hierarchical Routing 
 The main idea is that as the routers know the best path to other router in the same domain, and also the destination router in the different domain. So the router in the same domain can be groupped into a cluster, the controlled unit from the individual router itself to the cluster/grouop, such that the size of routing table can be reduced.
 * The next hop router in the routing table contains the gateway router in the same domain
+* Gateways know only about other gateways
 #### Disadvantages
 * The path may not be optimal, as we don't have the full picture of the network topology.
 
