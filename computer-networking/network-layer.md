@@ -11,7 +11,7 @@
 ### Dijkstra Algorithm
 * Link State algorithm
 * Compute the shortest path (i.e. least cost) from each node to all other nodes
-* Worst case time complexity: $O(|V|^2)$. It can be improved to $O(|E| + log(|V|)$ by using prioriy queue,where $|V|$ is number of node and $|E|$ is the number of edges in the graph
+* Worst case time complexity: $O(|V|^2)$. It can be improved to $O(|E| + log(|V|)$ by using priority queue,where $|V|$ is number of node and $|E|$ is the number of edges in the graph
 * Pseudocode
 ```
     For each node i in graph G:
@@ -49,6 +49,7 @@ When the link cost is changed or the link is down, routing loop may occur that t
 #### Solution: Split horizon with poison reverse
 The main idea of split horizon is to prevent to advertise the route to the interface which learnt from. With poison reverse machanism, the router will report INF to that interface instead.
 
+<<<<<<< HEAD
 ### Comparsion between link state and distance vector algorithm
 |                      	| Link State                                                                                	| Distance Vector                                                                             	|   	|   	|
 |----------------------	|-------------------------------------------------------------------------------------------	|---------------------------------------------------------------------------------------------	|---	|---	|
@@ -56,9 +57,18 @@ The main idea of split horizon is to prevent to advertise the route to the inter
 | Robustness           	| It will advertise incorrect link cost, but error only stays in its routing table          	| It will advertise incorrect path cost, and propagate the error to the network               	|   	|   	|
 | Speed of Convergence 	| Guarantee O(V^2) time in the worst case                                                   	| It may not be converge, because of count-to-infinity problem                                	|   	|   	|
 
+=======
+### Comparsion between Link state and distance vector algorithm
+|                      	| Link State  | Distance Vector	|   
+|----------------------	|-------------|-----------------|
+| Message complexity   	| Always requires O(VE) messages, flood the link info to all the nodes if it is changed 	| propagate the new link info to the neighbours only if the new cost result in shortest path  	| 
+| Robustness           	| It will advertise incorrect link cost, but error only stays in its routing table          	| It will advertise incorrect path cost, and propagate the error to the network    	| 
+| Speed of Convergence 	| Guarantee O(V^2) time in the worst case | It may not be converge, because of count-to-infinity problem                                	|   
+>>>>>>> b7699efa2fa25108a9c00a9eed79326d11f75962
 ### Hierarchical Routing 
 The main idea is that as the routers know the best path to other router in the same domain, and also the destination router in the different domain. So the router in the same domain can be groupped into a cluster, the controlled unit from the individual router itself to the cluster/grouop, such that the size of routing table can be reduced.
 * The next hop router in the routing table contains the gateway router in the same domain
+* Gateways know only about other gateways
 #### Disadvantages
 * The path may not be optimal, as we don't have the full picture of the network topology.
 
