@@ -1,4 +1,74 @@
 # Concurrency
+## Mechanisms to ensure concurrency
+### Mutual Exclusion
+To solve the problem of multiple process access the same resources simultaneously
+#### Implementation
+* Hardware support (Interrupt control)
+```
+  void lock() {
+    disable_interrupt();
+  }
+
+  void unlock() {
+    enable_interrupt();
+  }
+
+  while(true) {
+    lock();
+    // critical section
+    unlock();
+  }
+```
+* Compare-And-Swap
+```
+  int lock = 0;
+
+  // swap the value if actual = expected
+  int CompareAndSwap(int *ptr, int expected, int new) {
+    int actual = *ptr;
+    if (actual == expected)
+      *ptr = new;
+    return actual;
+  }
+
+  while(true) {
+    // lock = 1 -> the lock is acquired, lock = 0, the lock is released
+    while(CompareAndSwap(&lock, 0, 1)); // the thread is blocked if lock = 1
+    // the critical section 
+    lock = 0;
+  }
+```
+
+#### semaphore
+An object with an integer value that we can manipulate with two routines: sem_wait(), sem_signal()
+strong semaphore: FIFO remove from queue
+weak semaphore: 
+```
+  struct semaphore {
+    int count; // 
+    queue q;
+
+    void sem_wait(semaphore s) {
+      s.count--;
+      if(s.count < 0) {
+        q.push(p); // push the process
+        block();
+      }
+    }
+
+    void sem_signal(semaphore s) {
+      s.count++;
+      if(s.count <= 0) {
+        process p = q.pop(); // pop the process
+        wakeup(p);
+      }
+    }
+  }
+```
+* Mutex (Binary semaphore, s.count = {0, 1})
+
+ 
+
 ## Common Concurrency Problems
 ### Deadlock 
 A set of processes/threads is blocked because each of them is holding a resource and waiting for another resource acquired by some other process
