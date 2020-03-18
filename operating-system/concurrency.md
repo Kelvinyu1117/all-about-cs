@@ -2,7 +2,7 @@
 ## Mechanisms to ensure concurrency
 ### Mutual Exclusion
 To solve the problem of multiple process access the same resources simultaneously
-#### Implementation
+#### Implementation of Mutual Exclusion
 * Hardware support (Interrupt control)
 ```
   void lock() {
@@ -19,7 +19,7 @@ To solve the problem of multiple process access the same resources simultaneousl
     unlock();
   }
 ```
-* Compare-And-Swap
+* Compare-And-Swap Instruction (Atomic instruction)
 ```
   int lock = 0;
 
@@ -32,17 +32,18 @@ To solve the problem of multiple process access the same resources simultaneousl
   }
 
   while(true) {
-    // lock = 1 -> the lock is acquired, lock = 0, the lock is released
+    // lock = 1 -> the lock is acquired, lock = 0 -> the lock is released
     while(CompareAndSwap(&lock, 0, 1)); // the thread is blocked if lock = 1
     // the critical section 
     lock = 0;
   }
 ```
 
-#### semaphore
-An object with an integer value that we can manipulate with two routines: sem_wait(), sem_signal()
-strong semaphore: FIFO remove from queue
-weak semaphore: 
+### Semaphore
+An object with an integer value that we can manipulate with two routines: sem_wait(), sem_signal(), it can be used in mutual exclusion and synchronzation
+* Mutex (Binary semaphore, s.count = {0, 1})
+* strong semaphore: FIFO remove from queue
+* weak semaphore: unordered removal
 ```
   struct semaphore {
     int count; // 
@@ -65,8 +66,39 @@ weak semaphore:
     }
   }
 ```
-* Mutex (Binary semaphore, s.count = {0, 1})
+### Message passing
 
+#### Producer and Comsumer Problem
+Given a fixed size of buffer, Produce produce an item and can place in the buffer. A consumer can pick items and can consume them. We have to ensure that when the producer push item onto the buffer while the consumer cannot take out the item or vice versa. 
+
+
+#### Solution
+```
+sem_t empty = n; // # of empty space
+sem_t full = 0; // # of item in the queue
+sem_t mutex = 1; // binary semaphore {0, 1}, 0 is locked, 1 is unlocked 
+
+void *producer(void *arg) {
+  produce();
+  sem_wait(&mutex); 
+  sem_wait(&empty);
+  append();
+  sem_signal(&full);
+  sem_signal(&mutex);
+}
+
+void *consumer(void *arg) {
+  sem_wait(&full);
+  sem_wait(&mutex);
+  take();
+  sem_signal(&mutex);
+  sem_signal(&empty);
+  consume();
+}
+```
+#### Explaination
+
+#### Reader and Writer Problem
  
 
 ## Common Concurrency Problems
