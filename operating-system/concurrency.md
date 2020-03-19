@@ -4,6 +4,7 @@
 To solve the problem of multiple process access the same resources simultaneously
 #### Implementation of Mutual Exclusion
 * Hardware support (Interrupt control)
+
 ```
   void lock() {
     disable_interrupt();
@@ -20,6 +21,7 @@ To solve the problem of multiple process access the same resources simultaneousl
   }
 ```
 * Compare-And-Swap Instruction (Atomic instruction)
+  
 ```
   int lock = 0;
 
@@ -44,6 +46,7 @@ An object with an integer value that we can manipulate with two routines: sem_wa
 * Mutex (Binary semaphore, s.count = {0, 1})
 * strong semaphore: FIFO remove from queue
 * weak semaphore: unordered removal
+  
 ```
   struct semaphore {
     int count; // 
@@ -66,7 +69,66 @@ An object with an integer value that we can manipulate with two routines: sem_wa
     }
   }
 ```
+
 ### Message passing
+Provide synchronization and communication in one mechanism, with the e following APIs:
+```   
+send (destination, message)
+receive (source, message)
+```
+
+There are 3 typs of implementations
+* blocking send & receive   
+Both the sender and receiver are blocked until the message is delivered
+
+* non-blocking send & blocking receive  
+sender may continue after the message is sent, the receiver is blocked until the requested message arrives
+
+* non-blocking send and receive (no process need to wait)
+  
+Addressing of the message
+* Direct addressing:   
+The sender process send the message to the receiver directly
+
+* Indirect addressing   
+The message control is done through shared data structure (mailbox), which can decouple the sender and receiver. The sender and receiver can have the following relationship:
+  * one to one (private communication)
+  * one to many (boardcasting)
+  * many to one (cliet-server)
+  * many to many (concurrent server process with multiple client)
+
+#### How you use message passing to acheive mutal exclusion or solving producer and consumer problem?
+Mutual exclusion
+```
+void f(int i) {
+  while(true) {
+    receive (mailbox, message) // if the process need to access the critical section, it must receive a msg first
+    // the critical section 
+    send (mailbox, message)  
+  }
+}
+
+int main() {
+  create mailbox
+  send(mailbox, message);
+  par_run(f(0), f(1), f(2), ...)  
+}
+
+```
+Producer and consumer
+```
+void *producer(void *arg) {
+  receive (should_produce, Pmsg)
+  produce();
+  send(should_consume, Pmsg)
+}
+
+void *consumer(void *arg) {
+  receive (should_consume, Cmsg)
+  consume()
+  send(should_produce, Cmsg)
+}
+``` 
 
 #### Producer and Comsumer Problem
 Given a fixed size of buffer, Produce produce an item and can place in the buffer. A consumer can pick items and can consume them. We have to ensure that when the producer push item onto the buffer while the consumer cannot take out the item or vice versa. 
@@ -99,7 +161,16 @@ void *consumer(void *arg) {
 #### Explaination
 
 #### Reader and Writer Problem
- 
+Given a certain shared resources, there are some processes only perform read operation, and some of them perform write only
+We have to fulfill the following requirement:
+* Any number of readers may simultaneously read the file.
+* Only one writer at a time may write to the file.
+* If a writer is writing to the file, no reader may read it. 
+
+#### Solution
+(1) 
+```
+```
 
 ## Common Concurrency Problems
 ### Deadlock 
