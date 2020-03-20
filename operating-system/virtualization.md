@@ -1,5 +1,18 @@
 # Virtualization
 
+## OS Control Structure
+* File Table
+  * Existence of files
+  * Location on secondary memory
+  * Current status 
+* I/O Table
+  * The status of I/O operation
+  * The location in the main memeory for I/O data transfer
+* Memory Table
+  * Track both main/secondary memory:
+    * The allocation of the main/secondary memory to process
+    * Information needed to manage the virtual memory
+    * Protection attributes of blocks of memory
 ## System Protection   
 The system mode can be divided into two mode: User Mode, kernel Mode.
 The application program is executed in user mode while the OS component is executed in kernel mode.The execution mode switching is done by system call/interrupt. The main objective is that we don't want to the user to control the system resource directly.
@@ -57,7 +70,7 @@ process is a running program, the each process is independent to each other
 * Dispatcher
   * context switching
   * execution mode switching (user <--> kernel)
-### State model (Assume only one processer)
+### State model (Assume only one processor)
 #### Two-state model 
 
 <p align="center"> 
@@ -92,3 +105,49 @@ When the OS creates a new process, it will be pushed into the queue that is in t
 <img src="img/multi-queue.png" />
 </p>
 To solve the problem of two-state model that is the CPU has to scan through the queue to pick out the suitable process to execute, we assign different queue for different event, so for all process in that event queue, they are in the same state, and the CPU just need to pop it out when the event occurs
+
+* Disadavantages   
+  As each process to be executed must be loaded fully into main memory, and I/O is much slower than computation, it is very common that all process in the memory is blocked therefore the CPU is idle, the use of memory is not efficient also.
+
+#### Five-state model with suspend states
+<p align="center"> 
+<img src="img/7-state.png" />
+</p>
+
+##### Explanations
+With this design, we can move all the blocked process into the disk by swapping, and take it out when the event occurs
+
+##### Reasons for process suspension
+* Swapping  
+    Moving part or all of a process from main memory to the disk in order to release sufficient main memory to bring in a new process
+
+* User request
+* Timing 
+  * The process may be executed periodically
+* Parent process request
+* Others
+  OS suspects process of causing the problem
+
+### Life Cycle of a process
+* Creation
+  1. Assign PID to the process and add new entry in process table
+  2. Allocates space for the process
+  3. Initialize process control block
+  4. setup appropriate linkages (push it to the ready queue)
+  5. Create or expands other data structures (accounting file for performane assessment)
+* Switching
+  1. Save the context of the processor (PC, other regs)
+  2. Update PCB in the running state
+  3. Move the PCB to appropriate queue based on the event
+  4. Select another process for execution
+  5. Update the PCB of the selected process
+  6. Update the memory-management data structure (Virtual memory/paging)
+  7. Restore the context when the selected process switched out  
+  * Reason of process switching (context switching)
+    * Interrupt (asynchronous request from outside)
+    * Trap (error or exception occur)
+    * Supervisor call (system call)
+* Termination
+  1. Remove PCB
+  2. Free the system resources
+  3. return the termination status to the parent if the parent process is waiting for the child process to terminate
