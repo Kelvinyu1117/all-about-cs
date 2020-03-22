@@ -1,6 +1,18 @@
 # Concurrency
-# Thread
+## Thread
 
+<p align="center"> 
+<img src="img/thread.png" />
+</p>
+
+* Advantages
+  * Take less time to create/terminate a thread /do context switching than process
+
+  * Shared memory and files 
+* Disadvantages
+  * No guarantee as to the order that threads will run
+  
+  * Difficult for programmer to acheive the synchronization of data
 ## Mechanisms to ensure concurrency
 ### Mutual Exclusion
 To solve the problem of multiple process access the same resources simultaneously
