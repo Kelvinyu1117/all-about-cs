@@ -168,8 +168,50 @@ We have to fulfill the following requirement:
 * If a writer is writing to the file, no reader may read it. 
 
 #### Solution
-(1) 
+(1)  using semaphore and lock 
 ```
+writer() {
+  semWait(y) // lock-mutex
+  
+  writecount++;
+
+  if (writecount==1) 
+    semWait(rsem); // block the writer
+  
+  semSignal(y); // unlock-mutex
+
+  semWait(wsem); block the writer
+  WRITE( );
+  semSignal(wsem); unblock the writer
+
+  semWait(y); // lock-mutex
+  writecount--;
+  
+  if (writecount==0) 
+    semSignal(rsem); //  unblock the writer
+  semSignal(y); // unlock-mutex
+}
+
+reader() {
+  semWait (rsem); // block the reader
+
+  semWait(x); // lock-mutex
+
+  readcount++;
+  if(readcount==1)
+    semWait(wsem); // block the writer
+  
+  semSignal(x); // unlock-mutex
+
+  semSignal(rsem); // unblock the reader
+  READ();
+
+  semWait(x); // lock-mutex
+  readcount--;
+  if (readcount==0)
+    semSignal(wsem); // unblock the writer
+  semSignal(x); //unlock-mutex
+}
 ```
 
 ## Common Concurrency Problems
