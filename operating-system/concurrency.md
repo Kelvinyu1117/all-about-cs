@@ -13,6 +13,42 @@
   * No guarantee as to the order that threads will run
   
   * Difficult for programmer to acheive the synchronization of data
+
+### Different types of thread
+* User Level thread (ULT)
+  * Advantages:
+    * Saves the overhead of context switching as the process doesn't switch to the kernel for thread management
+
+    * It is applicable for different OS as it is just a set of functions on application level
+  
+  * Disadvantages:
+    * The advantage of multiprocessing cannot be taken as the kernel assigns one process to only one processor at a time and there is only one single thread within a process can execute at the time
+  
+    * All the threads in the process will be blocked when te system call is executed
+  
+* Kernel Level thread (KLT)
+   * Advantages:
+    * The kernel can schedule multiple threads from the same process onto multiple processor
+
+    * The kernel can schedule another thread of the same process if one of them is blocked.
+    * The kernel routine itself can be multithreaded also.
+  
+  * Disadvantages:
+    * Managing KLT is slower than ULT
+  
+    * Switching from one process to another one is costly as it is required a mode switch to the kernel
+    * implementations need OS support
+  
+* Combined Approach
+
+  * m to n relationships (ULT -> KLT)
+
+  * Multiple threads within the same application can run in parallel on multiple processor
+  
+  * A blocking system call need not block the entire process
+  
+  * It can take both the advantages of ULT and KLT if it is properly designed. 
+
 ## Mechanisms to ensure concurrency
 ### Mutual Exclusion
 To solve the problem of multiple process access the same resources simultaneously
