@@ -1,4 +1,6 @@
 # Concurrency
+# Thread
+
 ## Mechanisms to ensure concurrency
 ### Mutual Exclusion
 To solve the problem of multiple process access the same resources simultaneously
@@ -181,7 +183,7 @@ writer() {
   semSignal(y); // unlock-mutex
 
   semWait(wsem); block the writer
-  WRITE( );
+  WRITE();
   semSignal(wsem); unblock the writer
 
   semWait(y); // lock-mutex
