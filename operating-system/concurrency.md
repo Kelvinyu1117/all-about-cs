@@ -192,11 +192,11 @@ sem_t mutex = 1; // binary semaphore {0, 1}, 0 is locked, 1 is unlocked
 
 void *producer(void *arg) {
   produce();
-  sem_wait(&mutex); 
-  sem_wait(&empty);
+  sem_wait(&empty); 
+  sem_wait(&mutex);
   append();
-  sem_signal(&full);
   sem_signal(&mutex);
+  sem_signal(&full);
 }
 
 void *consumer(void *arg) {
@@ -209,6 +209,10 @@ void *consumer(void *arg) {
 }
 ```
 #### Explaination
+##### Producer
+check whether the queue is full or not (***sem_wait(&empty)***), that is ***empty*** < 0, as empty is the number of empty space in the queue. If it is full, the producer thread will be blocked. Otherwise, the producer acquire the lock(***mutex***) in order to prevent consumer to access the buffer during appending. After that, release the lock (***mutex***) and increament the the number of item in the queue (***sem_signal(&full)***), that is full++. 
+##### Consumer
+check whether the queue is empty or not (***sem_wait(&full)***), that is ***full*** < 0, as full is the number of item in the queue. If it is empty, the consumer thread will be blocked. Otherwise, the consumer acquire the lock(***mutex***) in order to prevent the producer to access the buffer during comsuming. After that, release the lock (***mutex***) and increament the the number of empty space in the queue (***sem_signal(&empty)***), that is empty++. 
 
 #### Reader and Writer Problem
 Given a certain shared resources, there are some processes only perform read operation, and some of them perform write only
