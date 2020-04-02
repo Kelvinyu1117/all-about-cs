@@ -77,3 +77,11 @@ The process for TCP to initiate the connection
 *  The third handshake is to let the server know the client can successfully receive the packet from server.
 
 In order to let the server and client to ensure that they can both send and receive packet, the **three** ways handshake is required.
+
+### Four ways handshake for terminate the connection
+The process for TCP to terminate the connection
+<p align="center"> 
+<img src="img/4-ways-handshakes.png" />
+</p>
+
+#### Explanations
