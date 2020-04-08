@@ -47,7 +47,7 @@
 
 * Maintain state variable for congestion control and flow control
   
-* Re-transmission mechanism 
+* Re-transmission mechanism (timeout -> retransmit)
 #### Others
 * Full dulpex service: data can flow from A->B or B->A at the same time 
 *  Point to Point: multicasting is not allowed and there must be single sender and receiver
@@ -105,9 +105,41 @@ The process for TCP to terminate the connection
   
   * As the values will fluctuate from segment to segment due to the congestion of the router or the load of the link in the network
   
-  * To estimate the typical RTT, it is natural to take some sort of average of the sampling values, which given by the following equation  
+  * To estimate the typical RTT, it is natural to take some sort of average (Exponential average) of the sampling values, which given by the following equation  
 
 $$
-       \text{EstimatedRTT} = (1 - \alpha) * \text{EstimatedRTT} + \alpha * \text{sampleRTT}
+       \text{EstimatedRTT} = (1 - \alpha) * \text{EstimatedRTT} + \alpha * \text{SampleRTT} \\
+
+       \text{The typical } \alpha {= 0.125}
+$$
+
+* DevRTT
+  
+  * It is measure of the variability of the RTT
+  
+  * It is an estimate of how much SampleRTT typically deviates from EstimatedRTT
+  
+  * It is also a exponential average
+
+$$
+       \text{DevRTT} = (1 - \beta) * \text{DevRTT} + \beta * \text{|SampleRTT - EstimatedRTT|} \\
+
+       \text{The typical } \beta {= 0.25}
 $$
 #### Timeout 
+* The design of the timeout should be $\geq$ EstimatedRTT, otherwise, unnecessary packet will be re-transmittd. 
+
+* But it cannot be too large, otherwise the segment transmission will suffer from a large transmission delay
+
+* The general idea is the EstimatedRTT + some margin, the formula is given by the following:
+
+  * If there is high fluctuation of the RTT, then the margin should be larger, otherwise it should be smaller (adaptive approach based on the DEVRTT). 
+
+$$
+       \text{TimeoutInterval} = \text{EstimatedRTT} + 4 * \text{DevRTT}
+$$
+
+* In TCP standard, the timeout interval initially start at 1, then double itself when collision occur (1, 2, 4, ... , 2^x) in order to avoid the premature timeout of subsequent packet
+
+#### Congestion Control
+   
