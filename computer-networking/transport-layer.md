@@ -127,7 +127,7 @@ $$
        \text{The typical } \beta {= 0.25}
 $$
 #### Timeout 
-* The design of the timeout should be $\geq$ EstimatedRTT, otherwise, unnecessary packet will be re-transmittd. 
+* The design of the timeout should be >= EstimatedRTT, otherwise, unnecessary packet will be re-transmittd. 
 
 * But it cannot be too large, otherwise the segment transmission will suffer from a large transmission delay
 
