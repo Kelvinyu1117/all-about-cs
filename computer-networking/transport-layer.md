@@ -85,3 +85,29 @@ The process for TCP to terminate the connection
 </p>
 
 #### Explanations
+1. The client send the segment with FIN = 1, to indicate the client has no data to send. But it can still recieve the data from the server
+   
+2. The server send the data segment with ACK = 1, to acknowledge the FIN flag of client, and start transmit the rest of the data
+   
+3. After the server finished the data transmission, the server send the segment with FIN = 1, to indicate the server has no data to send
+
+4. The client send the segment with ACK = 1, to acknowledge the FIN flag from server, and close the connection 
+
+
+### Performance Evaluation 
+
+#### Round trip time (RTT)
+
+##### Estimation
+* SampleRTT
+  
+  * The time for a segment is the amount of time between the segment is sent and when the ACK of that segments is recieved
+  
+  * As the values will fluctuate from segment to segment due to the congestion of the router or the load of the link in the network
+  
+  * To estimate the typical RTT, it is natural to take some sort of average of the sampling values, which given by the following equation  
+
+$$
+       \text{EstimatedRTT} = (1 - \alpha) * \text{EstimatedRTT} + \alpha * \text{sampleRTT}
+$$
+#### Timeout 
