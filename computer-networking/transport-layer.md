@@ -139,7 +139,7 @@ $$
        \text{TimeoutInterval} = \text{EstimatedRTT} + 4 * \text{DevRTT}
 $$
 
-* In TCP standard, the timeout interval initially start at 1, then double itself when collision occur (1, 2, 4, ... , 2^x) in order to avoid the premature timeout of subsequent packet
+* In TCP standard, the timeout interval initially start at 1, then double itself when collision occur (1, 2, 4, ... , 2^x) in order to avoid the premature timeout of the subsequent packet
 
 #### Congestion Control
    
