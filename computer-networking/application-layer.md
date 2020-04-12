@@ -43,7 +43,9 @@ Common Applications with corresponding transport protocol
 
 * use port 80
 
-* Stateless -> no memory of past request
+* pull protocol (TCP connection initiated by the host who want to request data)
+
+* stateless -> no memory of past request
 
 * use TCP
 
@@ -104,6 +106,32 @@ It is a client side object used for store the state of the user. As HTTP request
   * shopping carts
   * recommendations
   * user session state
-### Mail Services(SMAP, POP3)
+### Mail Services(SMTP, POP3)
+#### Main components
+* User agent
+
+  * composing. editing, reading, mail messages (Outlook, Thunderbird)
+
+* Mail server
+  * Mailbox
+    * contains the incoming messages for user
+  * Message queue
+    * consists of outgoing mail message
+* Protocols
+  
+  * Transfer protocol
+    
+    * SMTP
+      * use TCP, push protocol (TCP connection initiated by the host who want to send data)
+      * use port 25
+      * use persistent connections
+  * Access protocol
+    
+    * IMAP (Internet Mail Access Protocol)
+      * The message doesn't remain on the local machine but only kept in the server
+    * POP3 (Post Office Protocol )
+      * with authorization
+      * the messages are downloaded on the local machine
+#### 
 ## Content Distribution Networks(CDN)
 It manages servers, which stores multimedia content, in multiple geographically distributed locations, and attempts to direct each user request to a CDN location that will provide the best user experience
