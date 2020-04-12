@@ -142,4 +142,43 @@ $$
 * In TCP standard, the timeout interval initially start at 1, then double itself when collision occur (1, 2, 4, ... , 2^x) in order to avoid the premature timeout of the subsequent packet
 
 #### Congestion Control
-   
+##### General guidling principles of TCP congestion control
+*  A lost segment implies congestion, decrease the sending rate when the segment is lost
+
+* ACK received implies the network can deliver the sender segments to receiver, increase the sending rate when ACK is received.
+
+* Bandwidth probing
+  * Keep increase the sending rate until the segment is lost
+  
+  * if the segment is lost, the sender back off a bit for some time, and repeat the process
+
+##### State diagram of TCP congestion control
+ <p align="center"> 
+<img src="img/state-tcp-congestion.png" />
+</p>
+
+##### Explanation
+* Slow Start
+  * At the begining, set the congestion window size(cwnd) = 1 MSS, sending rate = MSS/RTT (Maximum segement size) / (round trip time)
+
+  * Increase cwnd 1 MSS every time when the tranmitted segment is first acknowledge, and doubling the cnwd every RTT
+  
+  * If the segment is timeout -> congestion avoidance
+
+    *  Set ssthresh = cwnd/2(slow start thresold, used for to limit the grow of the cwnd), cwnd = 1
+  
+  * If received three duplicated ACKs -> re-transmission
+
+* Congestion avoidance
+	* TCP become more conservatives -> increase the cwnd by 1 MSS every RTT
+    	* It can be accomplished by set cwnd =cwnd + MSS * (MSS/cwnd)
+
+	* If received three duplicated ACKs -> re-transmission
+	
+	*
+* Fast recovery
+  * Increase cwnd 1 MSS for every duplicated ACKs
+
+  * If timeout -> slow start
+  
+  * If the ACK for the missing segment is received -> congestion avoidance
