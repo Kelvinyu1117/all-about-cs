@@ -163,22 +163,33 @@ $$
 
   * Increase cwnd 1 MSS every time when the tranmitted segment is first acknowledge, and doubling the cnwd every RTT
   
-  * If the segment is timeout -> congestion avoidance
+  * If the congestion window size > slow start thresold -> congestion avoidance
 
     *  Set ssthresh = cwnd/2(slow start thresold, used for to limit the grow of the cwnd), cwnd = 1
   
-  * If received three duplicated ACKs -> re-transmission
+  * If received three duplicated ACKs -> fast recovery
 
 * Congestion avoidance
 	* TCP become more conservatives -> increase the cwnd by 1 MSS every RTT
     	* It can be accomplished by set cwnd =cwnd + MSS * (MSS/cwnd)
 
-	* If received three duplicated ACKs -> re-transmission
-	
-	*
+	* If received three duplicated ACKs -> fast recovery
+
+	* If timeout -> slow start
 * Fast recovery
   * Increase cwnd 1 MSS for every duplicated ACKs
 
   * If timeout -> slow start
   
   * If the ACK for the missing segment is received -> congestion avoidance
+  
+  * TCP Tahoe doesn't has this state, it will set cwnd = 1 MSS go back to slow start after either received three duplicated ACKs or timeout
+  
+  * Newer version of TCP, TCP reno hsa fast recovery feature  
+#### TCP Fairness
+##### Objectives
+Given K TCP connections, and a bottleneck link in the network with transmission rate R bps, the congestion control mechanism is fair if the average transmission rate of each connection is ~R/K
+##### Fairness problem in practice
+* For multimedia applications, it is preferable to use UDP and TCP as TCP congestion control will decrease the transmission rate accroding to the network situation
+
+* It is very common for some applications run parallel TCP connections, then it is unfair as those application takes up larger portion of bandwidth  
