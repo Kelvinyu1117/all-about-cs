@@ -67,18 +67,22 @@ Common Applications with corresponding transport protocol
     * 505 HTTP version not supported
   
 #### Non-persistent and persistent HTTP
+Connection establibment = 2RTT
 * Non-persistent
   * Send at most one object sent over TCP
 
   * multiple objects transmission required multiple connections
   
-  * response time = 2RTT + file transmission time
+  * response time = N * 2RTT + N * file transmission time (1 unit)
 
 * Persistent
   
   * Multiple objects can be sent over in single TCP connection
+  * One object = 1 RTT
+  * response time = N * 1RTT + N * file transmission time (1 unit)
+  * if pieplining apply, total response time = 1RTT + N * L/R, because we send N objects at once
+  * if pieplining doesn't apply, total response time = N * RTT + N * L/R
 
-  * 1 RTT for 1 object
 
 #### Web caching (Proxy server)
 network entity that satisfies HTTP requests on the behalf of an origin Web server
