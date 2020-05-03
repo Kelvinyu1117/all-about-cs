@@ -10,7 +10,36 @@ There are two types of memory: Main memory and virtual memory
   * Usually is a small portion of secondary storage, the address is called virtual address/logical address, relative address is the address relative to the origin of the program
 
 ## Requirements of Managment
-### 
+### Relocation
+* Swap the active process in and out from the main memory to maximize processor utilization by
+providing a large pool of ready processes to execute
+
+* Memory reference to program, data, function call stack need to be translate to physical address
+### Protection
+* The process should not able to reference memory locations in another process without permission
+  
+### Sharing
+* Any protection mechanism must have the flexibility to allow several processes
+to access the same portion of main memory
+
+### Logical organization
+* Most programs are organized into modules, some of which are unmodifiable (read only, execute only) and some of which contain data that may be modified
+
+* The OS should have a effective way to manage the program in term of different type of modules.
+
+* The advantages for this mechansim:
+  * Modules can be written and compiled independently
+  
+  * Different degrees of protection can be given to different modules. 
+
+  * Providing sharing on a module level allows the corresponding to the user’s way of viewing the problem htat it is easy for the user to specify the sharing that is desired
+
+### Physical organization
+* The flow of information should be managed by the OS but not the programmer because of the following reasons:
+
+  * the main memory may not sufficient for the program and data, overlaying programming techniques is needed for programmer which is time-consuming and difficult
+
+  * the programmer may not know how much space is needed and where the space will be
 ## Memory Management Techniques
 ### Fixed-size Partitioning
 * Memory is divided into fixed-size section, the process with the size <>= the size of the section will be loaded into the memory
@@ -53,7 +82,7 @@ For the address n + m bits, where n bits for page number and m bits for offset
 
 * leftmost is the outer address
   
-* increase the translation latency but reduce the page table size (the process only need to hold the outer table, which is smaller)  
+* increase the translation latency but reduce the memory usage  
 
 
 ### Segmentation
@@ -74,3 +103,88 @@ For the address n + m bits, where n bits for segment number and m bits for offse
 3. Compare the offset to the length of the segment, invalid if offset >= length
 
 4. Physical address = starting address + offset  
+
+## OS polices for virtual memory system
+The main purpose of the policies is to reduce the page fault (the exceptions that when the requested data is not in the RAM)
+### Fetch policy
+Determines when a page should be brought into memory.
+* Demanding Paging
+  * Load the page to the memory whenever it is referenced
+
+  * many page fault occurs when the process is started 
+  
+  * the rate of page fault will be dropped when time goes on due the prinicple of locality that most of the referenced page is already brought in
+   
+* Pre-paging
+  * Load all the require page of the process into the memory at the very begining
+### Placement policy
+Determines where in real memory a process piece is to reside
+### Replacement policy
+Determines which page in memory to be replaced when a new page must be brought in
+* The main idea is to the page should be removed from the memory if it has a least chance to be referenced in the future
+
+* Complicated replacement policy introduce overhead to the system 
+
+* Locking is introduced to ensure some of the pages will not be removed from the memory
+
+#### Replacement algorithm
+* Optimal
+  * Select the page has the longest time to the next reference
+  
+  * **You can never do that, unless your OS can predict the future**
+* First-in-first-out (FIFO)
+  
+  * Select the page in round robin fashion, treat the pages are in FIFO queue
+* Least recently used (LRU)
+  
+  * the page that has not been referenced for the longest time, the performance is almost optimal because of prinicple of locality.
+  
+  * It is difficult to implement and introduce a great deal overhead becuase of the following reasons:
+   
+    * It requires some kind of mechanisims to tag the page with last reference time
+  
+* Clock
+  * Similiar to FIFO, but introduce a bit to control the replacement
+  
+  * The frame in physcial memory is set when it is first loaded into the memory (use-bit = 1)
+  
+  * Whenever the page replacement is needed, the OS scans through all the frames and replace the frame with use-bit = 0
+  
+  * The implementation consists of a circular buffer of frames and a pointer points to the next frame need to be replaced
+  
+### Resident set management
+* Determines how many pages to bring into main memory. There are two types: fixed size and variable size page size allocation
+
+### Cleaning policy
+* Determines when a modified page should be written out to secondary memory.
+
+* Demand cleaning
+  
+  * A page is written out only when it has been selected for replacement
+  
+  * Minimize page writes but decrease processor utilization as a process that suffers a page fault may have to wait for two pages transfer before it can be unblocked
+  
+* Precleaning
+
+  * Modified pages are written out before their frames are needed
+  * Unnecessary cleaning operations may be performed
+  
+### Load control
+Determines the number of processes that will be resident in main memory
+* If too few processes are resident at any one time, then there will be many occasions when
+all processes are blocked, and much time will be spent in swapping
+
+* If too many processes are resident, the size of the resident set of each process will be inadequate (not enough) and frequent faulting will occur that result in thrashing. (the system spends most of its time swapping process pieces rather than executing instructions
+
+#### Multi-programming level
+The number of process vs processor utilization
+<p align="center"> 
+<img src="img/mutiprogramming-level.png" />
+</p>
+
+* One of the way to control the load is to monitor the rate of the pointer scans the circular buffer of frames
+
+  * Given two bounds, lower bound and upper bound
+  
+  * If the rate < lower bound, the level of muti-programming level is needed to be increased.
+  * If the rate > upper bound, the level of muti-programming level is needed to be decreased.
