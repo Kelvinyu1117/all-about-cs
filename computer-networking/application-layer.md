@@ -74,6 +74,8 @@ Connection establibment = 2RTT
   * multiple objects transmission required multiple connections
   
   * response time = N * 2RTT + N * file transmission time (1 unit)
+  
+  * if there is a HTML file size = N * L associate with that, response time += N * L/R 
 
 * Persistent
   
@@ -82,7 +84,7 @@ Connection establibment = 2RTT
   * response time = N * 1RTT + N * file transmission time (1 unit)
   * if pieplining apply, total response time = 1RTT + N * L/R, because we send N objects at once
   * if pieplining doesn't apply, total response time = N * RTT + N * L/R
-
+  * if there is a HTML file size = N * L associate with that, response time += N * L/R 
 
 #### Web caching (Proxy server)
 network entity that satisfies HTTP requests on the behalf of an origin Web server
