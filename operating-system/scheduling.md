@@ -11,6 +11,7 @@ The main idea of scheduling is to assign processes to be executed by the process
   * Determines whether to add a new process to the set of processes that are currently active
 
   * Controls the degree of multiprogramming (i.e. number of process)
+   
 * Mid-term
   
   * Part of the swapping function 
