@@ -60,11 +60,15 @@ How to schedule individual block I/O requests for optimizing performance
 <img src="img/total-access-time.png" />
 </p>
 
-* sequential access (adjcent track): t = time for reading 1st track + time for reading successive tracks
-* time for reading 1st track = seek time + rotational delay + time for reading all the sector in a track
-* time for reading sccessive track = N tracks * (rotational delay + time for reading all the sector in a track)
+* Sequential access (adjcent track): t = time for reading 1st track + time for reading successive tracks
+  * time for reading 1st track = seek time + rotational delay + time for reading all the sector in a track
 
-5* random access: t = N * (seek time + rotational delay + time for reading 1 sector)  
+  * time for reading sccessive track = N tracks * (rotational delay + time for reading all the sector in a track)
+
+* Random access: t = N * (seek time + rotational delay + time for reading 1 sector)
+
+* The order in which sectors are read from the disk has a tremendous effect on I/O performance
+
 #### Operation of Disk
 * To read/write, the read write head must be positioned at the desired track and at the begining of the desired sector on that track
 
@@ -77,5 +81,90 @@ How to schedule individual block I/O requests for optimizing performance
 <p align="center"> 
 <img src="img/disk-scheduling-algo.png" />
 </p> 
+
 ## File Allocation
 How to allocate files to free blocks on secondary storage
+
+* OS use file allocation table to manage the file
+
+### Allocation Policy
+* Pre-allocation: Maximum size of file has to be declared at the time of file creation request
+
+* Dynamic-allocation: Allocates space to a file in portions 
+
+#### Trade off of portion size
+  * efficency of single file vs overall system efficiency
+
+  * larger portion: contiguity of space -> performance++
+  
+  * smaller portion: a large number of small portion -> size of allocation table++   
+  
+  * fixed size portion: simplify the re-allocation of space 
+  
+  * Variable-size or small fixed-size portions: minimizes waste of unused storage due to overallocation
+
+### File allocation methods
+<p align="center"> 
+<img src="img/file-allocation.png" />
+</p> 
+
+#### Contiguous allocation
+<p align="center"> 
+<img src="img/contin-allocat.png" />
+</p> 
+
+* Advantages:
+  * FAT only need one table to maintain the entry of each file
+  
+  * I/O performance can be improved as multiple blocks can be read
+
+  * It is easy to get back a single block (location = b + i - 1, for the file start at block b and ith block is wanted)
+
+* Disadvantages:
+  
+  * External fragmentation will occur -> compaction (defragmentation) needed to perform
+
+#### Chained allocation
+<p align="center"> 
+<img src="img/chain-allocat.png" />
+</p> 
+
+* Advantages：
+  
+  * Any free block can be added to a chain
+
+  * No external fragmentation
+
+* Disadvantages:
+  * To select individual block of a file requires tracing throuhg the chain (O(N) time)
+  
+  * No accomodation of the prinicple of localitity which has to be consolidate files periodically   
+
+#### Indexed allocation
+FAT contains an entry for a file points to the file index block 
+
+
+
+Indexed Allocation with block portion
+<p align="center"> 
+<img src="img/index-allocat-block.png" />
+</p> 
+
+
+Indexed Allocation with variable-size portions
+<p align="center"> 
+<img src="img/index-allocat-variable.png" />
+</p> 
+
+
+* Advantages：
+  
+  * Allocation by blocks eliminates external fragmentation
+
+  * Allocation by variable-size portions improve locality
+  
+  * support both sequential and direct access to the file
+
+* Disadvantages:
+  * FIle consolidation may still need to be done to reduce the size of the index  
+
