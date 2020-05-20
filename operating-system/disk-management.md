@@ -4,6 +4,7 @@ How to organize record as a sequence of blocks for I/O
 <p align="center"> 
 <img src="img/record-blocking.png" />
 </p>
+
 ### Fixed length blocking
 Fixed-length records are used, integral number of records are stored in a block
 
