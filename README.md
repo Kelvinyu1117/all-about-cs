@@ -31,6 +31,6 @@ Note takings of everything related to computer science
 
 ## Coming Soon
 
-- [] Modern C++ 
+- Modern C++ 
 
-- [] Design Patterns 
+- Design Patterns 
