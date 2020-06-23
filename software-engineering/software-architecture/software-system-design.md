@@ -1,4 +1,4 @@
-# Software System Properties
+# Software System Design
 ## Different Tiers in Software Architecture
 ### Single Tier Application
 An application where the user interface, backend, business logic and database all reside in the same machine
@@ -165,6 +165,34 @@ The ability of the system to stay online even though having failures at the infr
 
 #### Ultimate Goal: Make system become fault tolerance
 
+The ability of the system to stay up even though error occurs, the system will not go down even though some services go offline
 
+* One of the solution is to break a massive service into small managetable services - microservices 
+
+##### Some ideas to achieve high availiability
+* Redundancy (Active-Passive Node)
+
+  * A backup mechanism that duplicate the components and let them standby to take over in case the service goes down
+
+  * Advantages
+    * Getting rid of single point failure as many redunant component is standing by to take over
+
+    * It allows self-recovery of the system because of monitoring automation
+
+* Replication (Active-Aassive Node)
+  *  A backup mechanism that allows similiar serivce running together, if one of them goes down, the load can be separated to other similiar services
+
+  * All the component in the system is active at any point of time
+
+##### Case study: High Availability Clustering
+* Contains set of node (computing devices) running in conjunction with each other to ensure high avilability
+
+* Those nodes are connected by a private network called Heartbeat network which monitors the heath and status of each node in the clusuter continuously
+
+* The state across all the nodes is acheived with the help of shared distributed memory and co-ordination mechansim
+
+* Serveral techniques (RAID, redundant network connection, redundant electrical power) also applied to ensure the avilability
+
+* Multiple cluster run together in one geographical zone to ensuring minimum downtime and continual service
 ### Load Balancing
 
