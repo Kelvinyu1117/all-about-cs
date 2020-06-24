@@ -194,5 +194,54 @@ The ability of the system to stay up even though error occurs, the system will n
 * Serveral techniques (RAID, redundant network connection, redundant electrical power) also applied to ensure the avilability
 
 * Multiple cluster run together in one geographical zone to ensuring minimum downtime and continual service
+  
 ### Load Balancing
+Load Balancer distribute the workload across the servers running in the cluster based on several different algorithms
 
+* The running servers is called in-service machines, the server that are down is called out-of service machines
+
+
+#### Hardware Load Balancer
+
+* A high performance physcial hardware which sit in front of the application server
+
+* Responsible for distributing the load based on the number of existing open connections, cpu utilization, ... (performance metric)
+
+* Require regular maintenance and updates, expensive to setup those load balancer
+
+* Certain skillset need to acquire in order to use those device
+
+#### Software Load Balancer
+
+* usually installed in VMs
+
+* cost effective and flexible to developer
+
+* Easy to upgrade and provision
+
+#### Algorithms used in load balancer
+
+* Round Robin
+
+  * processing the request sequentially, each server in turn
+  
+  * using the server's compute and traffic handling capacity as a weight to forward the request
+
+* Least Connection
+  
+  * The traffic is routed to the machine that has the least open connectioons of all machine in the cluster 
+
+  * It is assumed that all the request will consume an equal amount of server resources
+  
+  * In realilty, the server can be overloaded even though it has the least open connections, as some of the request may use most of its CPU power
+
+  * One of the approach to solve this problem is to also taking CPU utilization and reqest processing time as a criterion, the machine with less request processing time, CPU utilization & simultaneously having the least open connections
+
+* Random
+
+* Hash
+  
+  * Hash the source IP, certain IP must route to the same server
+  
+  * Making use of prinicple of locality, the client data may be hold in the server memory, which may reduce the latency
+   
