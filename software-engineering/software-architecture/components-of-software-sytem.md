@@ -126,6 +126,53 @@ A database software support multiple data model (relational, graph, time series.
   * Orient DB
   
   * Couchbase
+#### Document Oriented Database
+It store data in a document-oriented model in independent documents
+* It can be used for:
+  
+  * Real-time feeds
+  
+  * Live sports apps
+  
+  * Writing product catalogues
+  
+  * Inventory management
+  
+  * Storing user comments
+  
+  * Web-based multiplayer games
+
+#### Graph Database
+It store store data in nodes/vertices and edges in the form of relationships
+
+* It can be used for:
+  * Building social network
+  * Knowledge
+  * Network graphs
+  * Writing AI-based apps
+  * Recommendation engines
+  * Fraud analysis app
+  * Storing genetic data
+  
+#### Key Value Database
+These databases use a simple key-value method to store and quickly fetch the data with minimum latency (average O(1))
+
+* It can be used for:
+  * caching
+  * Persisting user state
+  * Persisting user sessions
+  * Managing real-time data
+  * Implementing queues
+  * Creating leaderboards in online games & web apps
+  * Implementing a pub-sub system
+
+#### Time Series Database
+Time-Series databases are optimized for tracking & persisting time series data.
+* It manage data in real-time & continually over a long period of time
+
+
+#### Wide-Column Database
 
 ## Caching
+
 ## Message Queue
