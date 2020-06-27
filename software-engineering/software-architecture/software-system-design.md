@@ -245,3 +245,29 @@ Load Balancer distribute the workload across the servers running in the cluster 
   
   * Making use of prinicple of locality, the client data may be hold in the server memory, which may reduce the latency
    
+## Common pattern in software architecture
+### Event driven architecture
+The code is written to react the events, instead of executing sequentially, which is fully asynchronous 
+
+* Events
+  * CPU intensive
+    * Computation
+  * IO intensive
+    * Network IO
+#### Blocking vs Non-Blocking
+* Blocking: the flow of execution is blokced for a process to complete
+
+* Non-blocking: the flow of execution doesn't wait for the function, and move to the next instruction
+   
+### Shared Nothing Architecture
+In this architecture, every module has its own memory, disk, such that even if some modules go down, another modules will not be affected, which eliminate all single point of failure
+
+### Hexagonal Architecture
+It consists of the following 3 main components:
+
+* Ports
+  * gateway for receiving outside data
+* Adapters
+  * convert the data obtained from the port
+* Domain
+  * core business logic
