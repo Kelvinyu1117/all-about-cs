@@ -170,9 +170,50 @@ These databases use a simple key-value method to store and quickly fetch the dat
 Time-Series databases are optimized for tracking & persisting time series data.
 * It manage data in real-time & continually over a long period of time
 
-
-#### Wide-Column Database
-
 ## Caching
+Caching allows the application with less-er response time
+
+### Caching Strategies
+* cache aside
+  * The cache works along with the database trying to reduce the hit to db as much as possible
+  
+  * The system first looks for the data in cache for every request
+  
+  * best for read-heavy workload
+  
+  * In this approach, the data is written directly to the database which lead to the problem of data inconsistent. TTL can be used for solving this problem that the data will be invalid from the cache, and refetch is needed
+
+* read-through
+  *  The data always consistent as the backend for controlling the cache will update the cache while response to the user 
+  
+* write through
+  
+  * Every data written to the DB will also go through the cache
+  
+  * The high consistency between the cache and database can be achieved
+
+* write back
+  * The data is directly written to the cache instead of the database, and after some delay, the data will be written back from cache to the database
+  
+  * If the cache fails before the DB is updated, the data might get lost
 
 ## Message Queue
+a queue which routes messages from the source to the destination
+
+* message queue is asynchronous, which means that it allows the modules to communicate with each other in the background without interrupting their current task
+
+* Messaging Model
+  
+  * publisher-subscriber model
+  
+  * point to point model
+
+### Publisher-Subscriber Model
+multiple consumers receive the same message sent from a single or multiple producers
+
+* publisher = sender = prodcuer
+
+* subscriber = receiver = consumer 
+
+### Point to Point Model
+one to one relationship: one producer vs one consumer
