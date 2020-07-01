@@ -41,6 +41,7 @@ An application that different features are splited into separated, independent, 
     * Different technologies can be applied into different modules as they are independent to each other
   
   * Independent and continuous deployments
+    * Minimizes the coordination effort as the team can act independently regarding domain logic and tech
   
     * indepentent service allows independent deployment
 
@@ -52,3 +53,32 @@ An application that different features are splited into separated, independent, 
   * No strong consistency
     
     * They guarantee eventually consistency instead of real time consistency because of the latency of inter-communication between services 
+
+## Continuous delivery
+It is an approach where software is continuously brought into production with the help of a continuous delivery pipeline.
+
+<p align="center"> 
+<img src="img/cd-piepline.png" />
+</p>
+
+1. Commit phase
+   
+   * software compilation
+   * unit tests
+   * static code analysis
+
+2. Acceptance test
+
+   * Automated tests assure the correctness of the software
+
+3. Capacity tests
+   
+   * Check the performance at the expected load
+
+4. Explorative tests
+   
+   * Perform not-yet-considered tests
+   * Analyze the aspects that are not yet covered by automated tests.
+
+5. Production
+
