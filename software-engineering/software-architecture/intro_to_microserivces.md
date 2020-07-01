@@ -53,6 +53,8 @@ An application that different features are splited into separated, independent, 
   * No strong consistency
     
     * They guarantee eventually consistency instead of real time consistency because of the latency of inter-communication between services 
+  
+  * Higher latency (communication between services through network) 
 
 ## Continuous delivery
 It is an approach where software is continuously brought into production with the help of a continuous delivery pipeline.
@@ -82,3 +84,5 @@ It is an approach where software is continuously brought into production with th
 
 5. Production
 
+* With microservice architecture, the piepline is faster as the deployment unit is smaller
+* The deployment has to be automated in order to make use of the advantages of faster CI.
