@@ -1,36 +1,44 @@
 # CS Notes
 Note takings of everything related to computer science
 
-## Current Notes Available
+## Notes Available
 
-### Computer Networking 
+- [X] Computer Networking 
 
-* Application layer
+  - [x] Application layer
 
-* Transport layer
+  - [x] Transport layer
 
-* Network layer
+  - [x] Network layer
 
-### Computer Vision
+- [x] Computer Vision
 
-* Image enhancement
+  - [x] Image enhancement
 
-* Image restoration
+  - [x] Image restoration
 
-### Operating System
+- [X] Operating System
 
-* Scheduling
+ - [x] Scheduling
 
-* Concurrency
+  - [x] Concurrency
 
-* Virtualization
+  - [x] Virtualization
 
-* Memory Management
+  - [x] Memory Management
 
-* Disk Management
+  - [x] Disk Management
+  
+- [ ] Software Engineering
 
-## Coming Soon
-
-- Modern C++ 
-
-- Design Patterns 
+  - [ ] Design Patterns 
+ 
+  - [ ] Software Architecture
+  
+    - [X] Software System Design
+    
+    - [X] Components of Software System
+  
+    - [X] Introduction to Microservices
+    
+- [ ] Modern C++ 
