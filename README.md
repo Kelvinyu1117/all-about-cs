@@ -19,7 +19,7 @@ Note takings of everything related to computer science
 
 - [X] Operating System
 
- - [x] Scheduling
+  - [x] Scheduling
 
   - [x] Concurrency
 
