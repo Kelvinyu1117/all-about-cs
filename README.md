@@ -1,5 +1,5 @@
 # All About CS
-Note takings of everything related to computer science or computer engineering
+Note-taking of everything related to computer science or computer engineering
 
 ## Notes Available
 
