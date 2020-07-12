@@ -11,12 +11,6 @@ Note-taking of everything related to computer science or computer engineering
 
   - [x] Network layer
 
-- [x] Computer Vision
-
-  - [x] Image enhancement
-
-  - [x] Image restoration
-
 - [X] Operating System
 
   - [x] Scheduling
