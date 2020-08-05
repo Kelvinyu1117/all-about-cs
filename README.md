@@ -25,7 +25,10 @@ Note-taking of everything related to computer science or computer engineering
   
 - [ ] Software Engineering
 
-  - [ ] Design Patterns 
+  - [ ] Software Design
+    - [X] Object-Oriented Design
+    
+    - [ ] Design Patterns 
  
   - [ ] Software Architecture
   
