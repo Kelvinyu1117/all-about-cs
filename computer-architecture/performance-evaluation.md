@@ -16,17 +16,18 @@
 
 <!-- $$
 \begin{aligned}
- & \text{CPU time} = \text{ \# of instrcution in the program} * \text{cycles per instruction (CPI)} * \text{clock cycle time} \\ 
+ & \text{CPU time} = \text{ # of instrcution in the program} * \text{cycles per instruction (CPI)} * \text{clock cycle time} \\ 
 
  \\
- & = \frac{\text{ \# of instruction}}{\text{program}} * \frac{\text{cycle}}{\text{instruction}} * \frac{\text{second}}{\text{cycle}}\\
+ & = \frac{\text{ # of instruction}}{\text{program}} * \frac{\text{cycle}}{\text{instruction}} * \frac{\text{second}}{\text{cycle}}\\
 
  \\
- &=(\sum{\text{count of each instruction i} * \text{CPI}_i}) * \frac{\text{second}}{\text{cycle}} \text{, for unequal instruction time, i.e. different cycle for different instruction}
+ &=(\sum_i{\text{count of each instruction i} * \text{CPI}_i}) * \frac{\text{second}}{\text{cycle}} \text{, for unequal instruction time, i.e. different cycle for different instruction}
 \end{aligned}
 $$ --> 
 
-<div align="center"><img src="../svg/SP8u8eX3hv.svg"/></div>
+<div align="center"><img src="../svg/RoQOIw6NCy.svg"/></div> 
+
 
 
 - \# of instruction in the program, related to
@@ -49,22 +50,48 @@ $$ -->
   
   - Circuit design
   
-  - Transistor physcis  
+  - Transistor physics  
 
 ### The focus of computer architecture
 
-#### Instruction Set
+#### Instruction Set Improvement
 
 - complex instruction: fewer instructions but more cycle needed for one instruction
 
 - simple instruction: more instructions but few cycle needed for one instruction 
 
-#### Processor Design
+#### Processor Design Improvement
 
-- short time for one cycle: more cycle needed for one instruction
+- shorter time for one cycle: more cycle needed for one instruction
 
 - longer time for one cycle: less cycle needed for one instruction
 
+
+### What if only the speedup only apply on part of the program or instruction?
+
+#### Amdahl's Law
+
+<!-- $$
+\begin{aligned}
+
+& \text{Overall Speedup} = \frac{1}{(1 - \text{frac}_\text{enh}) + \frac{\text{frac}_\text{enh}}{\text{speedup}_\text{enh}}} \\
+ 
+\\
+
+&\text{where frac}_{enh}\text{ is the \% of original execution time affected by the enahncement} \\
+
+\end{aligned}
+$$ --> 
+
+<div align="center"><img src="../svg/laYrz2al0h.svg"/></div>
+
+- Implication
+  
+  - You will not get very large improvement if you put effort on speeding up the small part of execution time
+  
+  - **Make the common case fast !!!!**
+  
+  - **Don't make the uncommon case too slow!!!** 
 ## Performance comparsion
 
 - We usually say "X is Y times faster than Z", then Y is the speed up
