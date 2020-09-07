@@ -58,7 +58,7 @@ $$ -->
 
 - complex instruction: fewer instructions but more cycle needed for one instruction
 
-- simple instruction: more instructions but few cycle needed for one instruction 
+- simple instruction: more instructions but fewer cycle needed for one instruction 
 
 #### Processor Design Improvement
 
@@ -67,7 +67,7 @@ $$ -->
 - longer time for one cycle: less cycle needed for one instruction
 
 
-### What if only the speedup only apply on part of the program or instruction?
+### What if only the speedup only apply on part of the program or instructions?
 
 #### Amdahl's Law
 
@@ -78,12 +78,13 @@ $$ -->
  
 \\
 
-&\text{where frac}_{enh}\text{ is the \% of original execution time affected by the enahncement} \\
+&\text{where frac}_{enh}\text{ is the \% of original execution time affected by the enhancement} \\
 
 \end{aligned}
 $$ --> 
 
-<div align="center"><img src="../svg/laYrz2al0h.svg"/></div>
+<div align="center"><img src="../svg/4M7bTRydVE.svg"/></div>
+
 
 - Implication
   
@@ -91,7 +92,9 @@ $$ -->
   
   - **Make the common case fast !!!!**
   
-  - **Don't make the uncommon case too slow!!!** 
+  - **Don't make the uncommon case too slow!!!**
+   
+  - **Law of Diminishing Return - We cannot get improvement if we only focus on the same portion of execution time**
 ## Performance comparsion
 
 - We usually say "X is Y times faster than Z", then Y is the speed up
@@ -108,11 +111,9 @@ $$ -->
 
 ### Summarizing the performance
 
-- simple average cannot be directly to speedup (taking average of all speedup ratio of each computer). 
+- simple average cannot be directly to speedup (taking average of all speedup ratio of each application). 
   
-- The correct way to calculate the average speedup among all application, is to applying the average to the metric itself, and calculate the speedup separately
-  
-- Another way is to directly applpy geometric mean of the speedup, the result will be the same as finding the geometric mean of the metric and calculate the speedup because of the following:
+- The correct way is to directly apply geometric mean of the speedup, the result will be the same as finding the geometric mean of the metric and calculate the speedup because of the following:
 
 <!-- $$
 \frac{\sqrt[n]{speedup(A_1) * speedup(A_2) * ... * speedup(A_n)}}{\sqrt[n]{speedup(B_1) * speedup(B_2) * ... * speedup(B_n)}} = \sqrt[n]{\frac{speedup(A_1)}{speedup(B_1)} * \frac{speedup(A_2)}{speedup(B_2)} * ... * \frac{speedup(A_n)}{speedup(B_n)} }
