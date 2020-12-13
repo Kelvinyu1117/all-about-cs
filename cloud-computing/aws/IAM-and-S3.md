@@ -41,12 +41,27 @@
   - assign AWS resources to different role of user 
 
 
+### Basic
 
+- IAM is universal, no region restriction
+
+- Root account is a account simply created when first setup, which has complete admin access
+
+- New user have no permission when first created
+
+- No permission when first created
+
+- Access key ID and secret access key when a new user is first created
+  
+  - Only generate one times
+  
+  - it is not same as **Password**, it cannot used to login to the console, but it can used for accessing AWS APIS and command line      
+ 
 ## Simple Storage Service (S3)
 
 ### Features
 
-- Object based - allow user to upload files
+- Object based - allow user to upload files (no OS)
 
 - Files can be from 0 Bytes to 5 TB
 
@@ -87,6 +102,17 @@
     - Access Control list
     
     - Torrent
+  
+- new bucket is always private
+  
+  - access control
+    
+    - bucket policies - apply to all object in the bucket
+    
+    - access control list - control individual object
+    
+    - access log -> log all request, which can send to another bucket or another bucket in another account
+
 
 ### Data consistency of S3
 
